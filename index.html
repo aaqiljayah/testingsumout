@@ -1,0 +1,720 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Happy Birthday SAYANG</title>
+  <style>
+    :root{
+      --bg:#070712;
+      --text:#ffffff;
+      --muted: rgba(255,255,255,.74);
+      --muted2: rgba(255,255,255,.60);
+      --shadow: 0 18px 70px rgba(0,0,0,.50);
+      --radius: 20px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      color:var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans";
+      line-height:1.45;
+      overflow-x:hidden;
+
+      background:
+        radial-gradient(1200px 800px at 15% 10%, rgba(255, 77, 166, .35) 0%, rgba(255, 77, 166, 0) 60%),
+        radial-gradient(900px 700px at 85% 18%, rgba(120, 117, 255, .35) 0%, rgba(120, 117, 255, 0) 60%),
+        radial-gradient(1000px 700px at 60% 92%, rgba(0, 255, 209, .18) 0%, rgba(0, 255, 209, 0) 60%),
+        linear-gradient(180deg, #070712, #060610);
+    }
+
+    .confettiLayer{
+      position:fixed; inset:0;
+      pointer-events:none;
+      z-index:5;
+      opacity:.9;
+    }
+
+    .wrap{max-width:1080px; margin:0 auto; padding:22px}
+    @media (max-width: 900px){ .wrap{padding:16px} }
+
+    .nav{
+      position:sticky; top:0;
+      z-index:30;
+      backdrop-filter: blur(12px);
+      background: rgba(7,7,18,.55);
+      border-bottom: 1px solid rgba(255,255,255,.10);
+    }
+    .navInner{
+      max-width:1080px; margin:0 auto;
+      padding:12px 22px;
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+    }
+    @media (max-width: 900px){ .navInner{padding:12px 16px} }
+
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      font-weight:800;
+      letter-spacing:.2px;
+    }
+    .badge{
+      padding:7px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.08);
+      font-size:12px;
+      color: rgba(255,255,255,.82);
+    }
+    .navBtns{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end}
+
+    .btn{
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.08);
+      color: var(--text);
+      padding:10px 12px;
+      border-radius: 999px;
+      cursor:pointer;
+      font-weight:700;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+      user-select:none;
+      white-space:nowrap;
+    }
+    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.26)}
+    .btnPrimary{
+      background: linear-gradient(135deg, rgba(255,77,166,.35), rgba(120,117,255,.35));
+      border-color: rgba(255,255,255,.26);
+    }
+
+    .hero{
+      padding:22px 0 10px;
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap:16px;
+      align-items:stretch;
+      position:relative;
+      z-index:10;
+    }
+    @media (max-width: 900px){ .hero{grid-template-columns:1fr; padding-top:16px} }
+
+    .panel{
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .panelPad{padding:22px}
+
+    .heroTitle{
+      font-size: clamp(30px, 4.2vw, 48px);
+      line-height:1.05;
+      margin:0 0 8px;
+      letter-spacing:-.7px;
+    }
+    .spark{
+      background: linear-gradient(90deg, #ff4da6, #7b74ff, #00ffd1);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .heroSub{
+      margin:0 0 14px;
+      color: var(--muted);
+      font-size: 16px;
+    }
+    .heroLine{margin:0 0 12px; color: rgba(255,255,255,.86); font-size: 16px}
+    .heroCtas{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px}
+    .miniPills{display:flex; gap:8px; flex-wrap:wrap; margin-top:14px}
+    .pill{
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.16);
+      font-size: 12px;
+      color: rgba(255,255,255,.80);
+    }
+
+    .heroPhoto{
+      height: 330px;
+      width:100%;
+      background: #0f0f16;
+      position:relative;
+    }
+    .heroPhoto img{
+      width:100%; height:100%;
+      object-fit: cover;
+      display:block;
+      filter: contrast(1.03) saturate(1.10);
+    }
+    .heroOverlay{
+      position:absolute; inset:0;
+      background:
+        radial-gradient(900px 360px at 20% 0%, rgba(255,77,166,.25), rgba(0,0,0,0) 60%),
+        radial-gradient(900px 360px at 90% 10%, rgba(120,117,255,.25), rgba(0,0,0,0) 60%),
+        linear-gradient(180deg, rgba(0,0,0,0) 42%, rgba(0,0,0,.60) 100%);
+      pointer-events:none;
+    }
+    .heroTag{
+      position:absolute; left:14px; bottom:14px;
+      padding:10px 12px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.22);
+      font-weight:800;
+      font-size: 13px;
+      letter-spacing:.2px;
+    }
+
+    section{padding:16px 0; position:relative; z-index:10}
+    .sectionTitle{font-size: 20px; margin:0 0 10px; letter-spacing:-.2px}
+    .sectionText{margin:0; color: var(--muted2); font-size: 15px}
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap:14px;
+    }
+    .card{
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .cardPad{padding:18px}
+    .col-7{grid-column: span 7}
+    .col-5{grid-column: span 5}
+    .col-6{grid-column: span 6}
+    .col-12{grid-column: span 12}
+    @media (max-width: 900px){
+      .col-7,.col-5,.col-6{grid-column: span 12}
+    }
+
+    .collage{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-auto-rows: 92px;
+      gap:10px;
+      padding:14px;
+      background:
+        radial-gradient(900px 260px at 20% 0%, rgba(255,77,166,.12), rgba(0,0,0,0) 65%),
+        radial-gradient(900px 260px at 90% 10%, rgba(120,117,255,.12), rgba(0,0,0,0) 65%),
+        rgba(0,0,0,.14);
+    }
+    .tile{
+      border-radius: 16px;
+      overflow:hidden;
+      position:relative;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      cursor:pointer;
+      transform: translateZ(0);
+      transition: transform .18s ease, border-color .18s ease, filter .18s ease;
+    }
+    .tile:hover{
+      transform: translateY(-2px) scale(1.01);
+      border-color: rgba(255,255,255,.26);
+      filter: brightness(1.05);
+    }
+    .tile img{width:100%; height:100%; object-fit:cover; display:block}
+    .t1{grid-column: span 6; grid-row: span 2}
+    .t2{grid-column: span 3; grid-row: span 2}
+    .t3{grid-column: span 3; grid-row: span 1}
+    .t4{grid-column: span 6; grid-row: span 2}
+    .t5{grid-column: span 6; grid-row: span 2}
+    @media (max-width: 900px){
+      .collage{grid-auto-rows: 84px}
+      .t1,.t4,.t5{grid-column: span 12}
+      .t2{grid-column: span 6}
+      .t3{grid-column: span 6}
+    }
+
+    .bullets{margin:12px 0 0; padding:0 0 0 18px}
+    .bullets li{margin:8px 0; color: rgba(255,255,255,.90)}
+    .bullets li span{color: rgba(255,255,255,.62)}
+    .promises{margin:12px 0 0; padding:0; list-style:none}
+    .promises li{
+      display:flex; gap:10px;
+      padding:12px 12px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.05);
+      border-radius: 16px;
+      margin:10px 0;
+    }
+    .check{
+      width:20px; height:20px; border-radius: 999px;
+      border:1px solid rgba(255,255,255,.20);
+      display:grid; place-items:center;
+      flex:0 0 auto;
+      margin-top:1px;
+      background: rgba(255,255,255,.08);
+    }
+    .check svg{width:14px; height:14px}
+
+    .footer{
+      padding:26px 0 40px;
+      text-align:center;
+      color: rgba(255,255,255,.65);
+      font-size: 13px;
+      position:relative;
+      z-index:10;
+    }
+
+    .fade{
+      opacity:0;
+      transform: translateY(12px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .fade.in{opacity:1; transform: translateY(0)}
+
+    .modal{
+      position:fixed; inset:0;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      background: rgba(0,0,0,.78);
+      z-index:60;
+      padding: 18px;
+    }
+    .modal.show{display:flex}
+    .modalBox{
+      width:min(980px, 100%);
+      border-radius: 18px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(10,10,16,.88);
+      box-shadow: 0 30px 90px rgba(0,0,0,.65);
+      position:relative;
+    }
+    .modalImg{
+      width:100%;
+      max-height: 78vh;
+      object-fit: contain;
+      display:block;
+      background: #0d0d12;
+    }
+    .close{
+      position:absolute; top:10px; right:10px;
+      border:1px solid rgba(255,255,255,.20);
+      background: rgba(255,255,255,.12);
+      color: var(--text);
+      border-radius: 999px;
+      padding:10px 12px;
+      cursor:pointer;
+      font-weight:800;
+    }
+
+    .toast{
+      position:fixed;
+      left:50%;
+      bottom:18px;
+      transform: translateX(-50%);
+      z-index:80;
+      max-width: min(560px, calc(100% - 28px));
+      padding:12px 14px;
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.42);
+      backdrop-filter: blur(10px);
+      color: rgba(255,255,255,.88);
+      font-size: 13px;
+      display:none;
+    }
+    .toast.show{display:block}
+  </style>
+</head>
+<body>
+
+  <canvas class="confettiLayer" id="confetti"></canvas>
+
+  <div class="nav">
+    <div class="navInner">
+      <div class="brand">
+        <span class="badge">Birthday mode</span>
+        <div>Cinta Untuk Nabila</div>
+      </div>
+      <div class="navBtns">
+        <button class="btn" type="button" data-jump="#story">Our story</button>
+        <button class="btn" type="button" data-jump="#collage">Photos</button>
+        <button class="btn" type="button" data-jump="#gratitude">Grateful</button>
+        <button class="btn btnPrimary" type="button" data-jump="#promises">Promises</button>
+        <button class="btn" id="musicBtn" type="button">Play music</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+
+    <div class="hero">
+      <div class="panel fade">
+        <div class="panelPad">
+          <h1 class="heroTitle">Happy Birthday, <span class="spark">Sayangg !!! </span></h1>
+          <p class="heroSub">Crazy how you're so old now 👵</p>
+
+          <p class="heroLine">
+            Happy birthdayy my sayangg, thank you for being there for meee
+            I wish I could be there to spend your birthday together, like how you did for me :(
+            But don't worry grandma, we can spend the rest of our birthday's together in the futuree !!!
+          </p>
+
+          <p class="heroLine">
+            Something about you was like "bro, I need you in my life."
+            I’m so very grateful you’re here.
+            I’m so very grateful you’re mine.
+          </p>
+
+          <div class="miniPills">
+            <div class="pill">You make me feel safe</div>
+            <div class="pill">You make me laugh</div>
+            <div class="pill">You are my peace</div>
+          </div>
+
+          <div class="heroCtas">
+            <button class="btn btnPrimary" type="button" data-jump="#collage">Open the collage</button>
+            <button class="btn" id="startBtn" type="button">Start music</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel heroPhoto fade" aria-label="Hero photo">
+        <img src="IMG_8128.JPG" alt="Us" onerror="this.onerror=null; this.src='IMG_4751.JPEG';" />
+        <div class="heroOverlay"></div>
+        <div class="heroTag">Saya sayang awak jugaa !!!!!!!!!!!</div>
+      </div>
+    </div>
+
+    <section id="story" class="fade">
+      <div class="grid">
+        <div class="card col-6">
+          <div class="cardPad">
+            <h2 class="sectionTitle">How you changed everything</h2>
+            <p class="sectionText">
+              I was not in a good place.
+              You showed up without forcing anything.
+              You felt like warmth in a cold season.
+            </p>
+          </div>
+        </div>
+
+        <div class="card col-6">
+          <div class="cardPad">
+            <h2 class="sectionTitle">Why you felt different</h2>
+            <p class="sectionText">
+              You made effort feel natural.
+              You made love feel easy.
+              You felt like someone I should never lose.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="collage" class="fade">
+      <div class="card">
+        <div class="cardPad">
+          <h2 class="sectionTitle">Our collage</h2>
+          <p class="sectionText">Tap any photo. It opens full screen.</p>
+        </div>
+
+        <div class="collage" aria-label="Photo collage">
+          <div class="tile t1" data-img="IMG_0394.JPEG"><img src="IMG_0394.JPEG" alt="Photo 1"></div>
+          <div class="tile t2" data-img="IMG_4751.JPEG"><img src="IMG_4751.JPEG" alt="Photo 2"></div>
+          <div class="tile t3" data-img="IMG_7714.JPEG"><img src="IMG_7714.JPEG" alt="Photo 3"></div>
+          <div class="tile t4" data-img="IMG_8128.JPG"><img src="IMG_8128.JPG" alt="Photo 4"></div>
+          <div class="tile t5" data-img="IMG_4987.JPEG"><img src="IMG_4987.JPEG" alt="Photo 5"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="gratitude" class="fade">
+      <div class="grid">
+        <div class="card col-7">
+          <div class="cardPad">
+            <h2 class="sectionTitle">I’m grateful for you</h2>
+            <p class="sectionText">Here is what you give me, every day.</p>
+            <ul class="bullets">
+              <li>You stayed. <span>Even when I was difficult.</span></li>
+              <li>You bring peace. <span>Even when my mind is loud.</span></li>
+              <li>You make me laugh. <span>Even on heavy days.</span></li>
+              <li>You make distance smaller. <span>Because you feel like home.</span></li>
+              <li>You believe in me. <span>When I doubt myself (ts real icl)</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card col-5">
+          <div class="cardPad">
+            <h2 class="sectionTitle">One thing I know</h2>
+            <p class="sectionText">
+              You were not random.
+              You were exactly what I needed.
+              I’m thankful I found you. You showed what it is to be loved and how someone could be so sweet and "annoying (im just kidding)" at the same time. 
+              You're the most caring friend I have had, some one who tells me the truth to my face even if it hurts you. 
+              I know that I love you from the bottom of my heart and truly want to spend the rest of my life with you.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="promises" class="fade">
+      <div class="card">
+        <div class="cardPad">
+          <h2 class="sectionTitle">My promises to you this year</h2>
+          <p class="sectionText">Clear actions. No empty words.</p>
+
+          <ul class="promises">
+            <li><div class="check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>I will communicate calmly, even when I feel stressed.</div></li>
+            <li><div class="check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>I will show up daily, not only when it is easy.</div></li>
+            <li><div class="check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>I will work hard on my goals so we build a stable future.</div></li>
+            <li><div class="check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>I will try my hardest to become the best version of myself, for us.</div></li>
+            <li><div class="check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>I will move us forward and close the distance step by step.</div></li>
+            <li><div class="check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>I will love you consistently, like I always do</div></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="fade">
+      <div class="panel heroPhoto" style="height:280px">
+        <img src="IMG_9292.JPG" alt="Us again" onerror="this.onerror=null; this.src='IMG_0394.JPEG';" />
+        <div class="heroOverlay"></div>
+        <div class="heroTag">Forever your person 💞</div>
+      </div>
+      <div class="footer">
+        Made with love, for Nabila.
+      </div>
+    </section>
+
+  </div>
+
+  <audio id="bgMusic" src="music.mp3" preload="auto" loop></audio>
+
+  <div class="modal" id="modal" aria-hidden="true">
+    <div class="modalBox">
+      <button class="close" id="closeModal" type="button">Close</button>
+      <img class="modalImg" id="modalImg" alt="Full image" />
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+    <audio id="bgMusic" preload="auto" loop playsinline>
+    <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+
+
+  <script>
+    (function(){
+      const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      function smoothJump(sel){
+        const el = document.querySelector(sel);
+        if(!el) return;
+        el.scrollIntoView({behavior: prefersReduced ? 'auto' : 'smooth', block:'start'});
+      }
+      document.querySelectorAll('[data-jump]').forEach(btn=>{
+        btn.addEventListener('click', () => smoothJump(btn.getAttribute('data-jump')));
+      });
+
+      const fadeEls = Array.from(document.querySelectorAll('.fade'));
+      if(prefersReduced){
+        fadeEls.forEach(el => el.classList.add('in'));
+      }else{
+        const io = new IntersectionObserver((entries)=>{
+          entries.forEach(e=>{
+            if(e.isIntersecting) e.target.classList.add('in');
+          });
+        }, {threshold: 0.12});
+        fadeEls.forEach(el=>io.observe(el));
+      }
+
+      const modal = document.getElementById('modal');
+      const modalImg = document.getElementById('modalImg');
+      const closeModalBtn = document.getElementById('closeModal');
+
+      function openModal(src){
+        modalImg.src = src;
+        modal.classList.add('show');
+        modal.setAttribute('aria-hidden','false');
+      }
+      function closeModal(){
+        modal.classList.remove('show');
+        modal.setAttribute('aria-hidden','true');
+        modalImg.src = '';
+      }
+      document.querySelectorAll('.tile').forEach(tile=>{
+        tile.addEventListener('click', ()=> openModal(tile.getAttribute('data-img')));
+      });
+      modal.addEventListener('click', (e)=>{ if(e.target === modal) closeModal(); });
+      closeModalBtn.addEventListener('click', closeModal);
+      document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeModal(); });
+
+      const toast = document.getElementById('toast');
+      let toastTimer = null;
+      function showToast(msg){
+        toast.textContent = msg;
+        toast.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(()=> toast.classList.remove('show'), 5200);
+      }
+
+      const music = document.getElementById('bgMusic');
+      const musicBtn = document.getElementById('musicBtn');
+      const startBtn = document.getElementById('startBtn');
+      let playing = false;
+
+      function setMusicUI(){
+        musicBtn.textContent = playing ? 'Pause music' : 'Play music';
+        startBtn.textContent = playing ? 'Music is playing' : 'Start music';
+      }
+
+      async function startMusicFromUserGesture(){
+        try{
+          await music.play();
+          playing = true;
+          setMusicUI();
+        }catch(err){
+          playing = false;
+          setMusicUI();
+          showToast('Music blocked by the browser. Tap Start music again.');
+        }
+      }
+
+      async function toggleMusic(){
+        try{
+          if(!playing){
+            await music.play();
+            playing = true;
+          }else{
+            music.pause();
+            playing = false;
+          }
+          setMusicUI();
+        }catch(err){
+          playing = false;
+          setMusicUI();
+          showToast('Music could not start. Make sure music.mp3 is in the folder.');
+        }
+      }
+
+      // Autoplay reality:
+      // Most browsers block autoplay with sound.
+      // The best fix is "Start music" as a user gesture.
+      // We still try silent start, then fade volume up after gesture.
+      async function attemptAutoplayMuted(){
+        try{
+          music.muted = true;
+          await music.play();
+          playing = true;
+          setMusicUI();
+          showToast('Tap anywhere once to unmute music.');
+        }catch(err){
+          playing = false;
+          setMusicUI();
+          showToast('Tap "Start music" to begin.');
+        }
+      }
+
+      function unmuteOnFirstGesture(){
+        const handler = async () => {
+          if(playing && music.muted){
+            music.muted = false;
+            music.volume = 0.9;
+            setMusicUI();
+          }
+          window.removeEventListener('pointerdown', handler);
+          window.removeEventListener('keydown', handler);
+        };
+        window.addEventListener('pointerdown', handler, {once:true});
+        window.addEventListener('keydown', handler, {once:true});
+      }
+
+      musicBtn.addEventListener('click', toggleMusic);
+      startBtn.addEventListener('click', startMusicFromUserGesture);
+      music.addEventListener('error', ()=> showToast('Missing music.mp3. Add it to this folder.'));
+
+      // Confetti: run forever by continuously spawning pieces
+      const confetti = document.getElementById('confetti');
+      const ctx = confetti.getContext('2d');
+      function resize(){
+        confetti.width = Math.floor(window.innerWidth * devicePixelRatio);
+        confetti.height = Math.floor(window.innerHeight * devicePixelRatio);
+        ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
+      }
+      window.addEventListener('resize', resize);
+
+      const pieces = [];
+      function rand(min,max){ return Math.random()*(max-min)+min; }
+
+      function spawnConfetti(count){
+        for(let i=0;i<count;i++){
+          pieces.push({
+            x: rand(0, window.innerWidth),
+            y: rand(-40, -10),
+            w: rand(5, 10),
+            h: rand(8, 14),
+            vx: rand(-0.7, 0.7),
+            vy: rand(1.5, 3.2),
+            rot: rand(0, Math.PI),
+            vr: rand(-0.10, 0.10),
+            hue: rand(300, 360),
+            life: rand(260, 520)
+          });
+        }
+      }
+
+      // More lively: keep a steady confetti rate
+      let lastSpawn = 0;
+      const spawnEveryMs = 140; // lower = more confetti
+
+      function tick(ts){
+        if(!prefersReduced){
+          ctx.clearRect(0,0,window.innerWidth, window.innerHeight);
+
+          if(!lastSpawn) lastSpawn = ts;
+          if(ts - lastSpawn > spawnEveryMs){
+            spawnConfetti(10);
+            lastSpawn = ts;
+          }
+
+          for(let i=pieces.length-1;i>=0;i--){
+            const p = pieces[i];
+            p.x += p.vx;
+            p.y += p.vy;
+            p.rot += p.vr;
+            p.life -= 1;
+
+            if(p.y > window.innerHeight + 60 || p.life <= 0){
+              pieces.splice(i,1);
+              continue;
+            }
+
+            ctx.save();
+            ctx.translate(p.x, p.y);
+            ctx.rotate(p.rot);
+            ctx.fillStyle = `hsla(${p.hue}, 88%, 65%, 0.92)`;
+            ctx.fillRect(-p.w/2, -p.h/2, p.w, p.h);
+            ctx.restore();
+          }
+        }
+        requestAnimationFrame(tick);
+      }
+
+      resize();
+      // initial burst
+      spawnConfetti(140);
+      requestAnimationFrame(tick);
+
+      // Music handling
+      // Best possible "autoplay": start muted, then unmute on first tap
+      attemptAutoplayMuted();
+      unmuteOnFirstGesture();
+      setMusicUI();
+    })();
+  </script>
+</body>
+</html>
